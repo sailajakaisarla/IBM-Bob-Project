@@ -1,0 +1,1826 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R 38 0 R 40 0 R 42 0 R] /Count 14 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-BoldOblique /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman /Encoding /WinAnsiEncoding >>
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Bold /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Italic /Encoding /WinAnsiEncoding >>
+endobj
+10 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-BoldItalic /Encoding /WinAnsiEncoding >>
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding >>
+endobj
+13 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Oblique /Encoding /WinAnsiEncoding >>
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-BoldOblique /Encoding /WinAnsiEncoding >>
+endobj
+15 0 obj
+<< /Length 2900 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 773.2 Tm
+(AI Legal Aid Multi-Agent System IBM watsonx Hackathon 2026) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+( 1. Project Title) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(AI Legal Aid Multi-Agent System using IBM watsonx) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+( 2. Problem Statement) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(Problem Statement No. 3 - AI Legal Aid Multi-Agent System) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(Access to legal services is often expensive, time-consuming, and difficult for individuals) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 585.76 Tm
+(and small businesses. Legal documents contain complex terminology, making it) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(challenging for non-lawyers to understand contracts, rights, compliance requirements, and) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 551.68 Tm
+(legal procedures.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 517.6 Tm
+(This project provides an AI-powered legal assistant using IBM watsonx that combines) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(Retrieval-Augmented Generation \(RAG\), document intelligence, and multiple AI agents to) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 483.52 Tm
+(deliver understandable, accurate, and context-aware legal assistance.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+( 3. Abstract) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(The AI Legal Aid Multi-Agent System is an intelligent legal assistant that helps users) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(understand legal matters through natural conversations, document analysis, legal) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(research, compliance verification, and contract review.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 347.2 Tm
+(Unlike traditional chatbots, this system uses multiple specialized AI agents coordinated) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 330.16 Tm
+(through IBM watsonx to solve different legal tasks collaboratively.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 296.08 Tm
+(Users can upload contracts, ask legal questions, receive document summaries, identify) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 279.04 Tm
+(legal risks, retrieve relevant laws and case precedents using Retrieval-Augmented) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 262 Tm
+(Generation \(RAG\), and generate professional legal reports.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 227.92 Tm
+(The system simplifies legal information into easy-to-understand language while always) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 210.88 Tm
+(informing users that it is not a replacement for professional legal advice.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 176.8 Tm
+(4. Objectives) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 142.72 Tm
+(The project aims to:) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(* Provide affordable AI-powered legal assistance.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 91.6 Tm
+(* Simplify legal language into understandable explanations.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 74.56 Tm
+(* Analyze legal documents automatically.) Tj
+ET
+
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 15 0 R >>
+endobj
+17 0 obj
+<< /Length 1644 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 773.2 Tm
+(* Detect contractual risks.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 756.16 Tm
+(* Verify compliance with legal regulations.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+(* Retrieve relevant legal information using RAG.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(* Generate structured legal reports.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(* Improve access to justice for citizens and small businesses.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(5. Proposed Solution) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(The proposed solution is a Multi-Agent AI system where each intelligent agent specializes) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+(in a specific legal task.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 585.76 Tm
+(Instead of one AI handling everything, multiple agents collaborate to produce accurate and) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(explainable results.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(The workflow includes:) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(User Login) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 466.48 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 432.4 Tm
+(Dashboard) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 364.24 Tm
+(New Consultation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 330.16 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 296.08 Tm
+(Intake Interview) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 262 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 227.92 Tm
+(Document Upload) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 193.84 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 159.76 Tm
+(Document Analysis) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 125.68 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 91.6 Tm
+(Legal Research) Tj
+ET
+
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 17 0 R >>
+endobj
+19 0 obj
+<< /Length 1886 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 773.2 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+(Compliance Checking) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(Contract Review) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(Legal Advice) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(Final Report Generation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+( 6. System Architecture) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 466.48 Tm
+(User) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 432.4 Tm
+(Authentication) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(User Dashboard) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 364.24 Tm
+(???????????????????????????????) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 347.2 Tm
+(? ? ?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 330.16 Tm
+(? ? ?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 313.12 Tm
+(New Consultation Upload File Search Laws) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 296.08 Tm
+(? ? ?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 279.04 Tm
+(? ? ?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 262 Tm
+(Intake Agent Document Parser RAG Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 244.96 Tm
+(? ? ?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 227.92 Tm
+(???????????????????????????????) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 210.88 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 193.84 Tm
+(AI Coordinator Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 176.8 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 159.76 Tm
+(???????????????????????????) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 142.72 Tm
+(? ? ?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 125.68 Tm
+(Contract Compliance Case Research) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(Reviewer Agent Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 91.6 Tm
+(? ? ?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 74.56 Tm
+(???????????????????????????) Tj
+ET
+
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 19 0 R >>
+endobj
+21 0 obj
+<< /Length 1717 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 773.2 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 756.16 Tm
+(Legal Advice Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(Report Generator Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 688 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 653.92 Tm
+(Download PDF Report) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+( 7. Technologies Used) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 585.76 Tm
+(Frontend) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 551.68 Tm
+(* React.js) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(* HTML5) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 517.6 Tm
+(* CSS3) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(* Tailwind CSS) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 483.52 Tm
+(* JavaScript) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+( Backend) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(* Python) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(* Flask) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(* FastAPI \(optional\)) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 347.2 Tm
+(AI) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 313.12 Tm
+(* IBM watsonx.ai) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 296.08 Tm
+(* Granite Foundation Models) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 279.04 Tm
+(* LangChain) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 262 Tm
+(* CrewAI / LangGraph) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 227.92 Tm
+(Database) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 193.84 Tm
+(* PostgreSQL) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 176.8 Tm
+(* SQLite \(Development\)) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 159.76 Tm
+( Vector Database) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 125.68 Tm
+(* FAISS) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(* ChromaDB) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 74.56 Tm
+(Authentication) Tj
+ET
+
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 21 0 R >>
+endobj
+23 0 obj
+<< /Length 1620 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 756.16 Tm
+(* JWT) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+(* Google OAuth) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(* IBM Cloud Authentication) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 688 Tm
+(---) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 653.92 Tm
+(File Processing) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+(* PyMuPDF) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(* pdfplumber) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 585.76 Tm
+(* OCR) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(* Tesseract) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 551.68 Tm
+( Deployment) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 517.6 Tm
+(* IBM Cloud) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(* Docker) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 483.52 Tm
+(* GitHub) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+( 8. Modules) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(Module 1 - Authentication) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(Features) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 347.2 Tm
+(* Login) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 330.16 Tm
+(* Registration) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 313.12 Tm
+(* Google Login) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 296.08 Tm
+(* IBM Login) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 279.04 Tm
+(* Forgot Password) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 262 Tm
+(* JWT Authentication) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 227.92 Tm
+(Roles) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 193.84 Tm
+(* Citizen) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 176.8 Tm
+(* Lawyer) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 159.76 Tm
+(* Administrator) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 142.72 Tm
+( Module 2 - Dashboard) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(Displays) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 74.56 Tm
+(* Recent Cases) Tj
+ET
+
+endstream
+endobj
+24 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 23 0 R >>
+endobj
+25 0 obj
+<< /Length 1887 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 773.2 Tm
+(* Notifications) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 756.16 Tm
+(* Uploaded Documents) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+(* Saved Reports) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(* Pending Consultations) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 688 Tm
+(Quick Actions) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 653.92 Tm
+(* New Consultation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(* Upload Contract) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+(* Search Laws) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(Module 3 - Intake Interview Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(Collects) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(* Case Type) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 517.6 Tm
+(* Country) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(* State) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 483.52 Tm
+(* Language) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 466.48 Tm
+(* Description) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+(* Urgency) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(Dynamic questions based on selected legal category.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(# Module 4 - Document Upload) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 364.24 Tm
+(Supported formats) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 330.16 Tm
+(* PDF) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 313.12 Tm
+(* DOCX) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 296.08 Tm
+(* TXT) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 279.04 Tm
+(* JPG) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 262 Tm
+(* PNG) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 227.92 Tm
+(Supported documents) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 193.84 Tm
+(* Contracts) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 176.8 Tm
+(* Agreements) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 159.76 Tm
+(* Notices) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 142.72 Tm
+(* Payslips) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 125.68 Tm
+(* Offer Letters) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(* Legal Notices) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 91.6 Tm
+( Module 5 - Document Parsing Agent) Tj
+ET
+
+endstream
+endobj
+26 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 25 0 R >>
+endobj
+27 0 obj
+<< /Length 1868 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 773.2 Tm
+(Extracts) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+(* Parties) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(* Salary) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(* Dates) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 688 Tm
+(* Clauses) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(* NDA) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 653.92 Tm
+(* Arbitration) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(* Confidentiality) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+(* Termination) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(* Obligations) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(Provides) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(* Summary) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 517.6 Tm
+(* Highlighted Clauses) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(* Risk Score) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 483.52 Tm
+( Module 6 - Contract Review Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+(Detects) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(* Missing clauses) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(* Legal inconsistencies) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(* Unlimited liability) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 364.24 Tm
+(* Missing termination clauses) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 347.2 Tm
+(* IP ownership issues) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 313.12 Tm
+(Outputs) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 279.04 Tm
+(* Severity) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 262 Tm
+(* Recommendation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 244.96 Tm
+(* Explanation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 227.92 Tm
+( Module 7 - Compliance Checker Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 193.84 Tm
+(Checks) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 159.76 Tm
+(* Labour Law) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 142.72 Tm
+(* Consumer Law) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 125.68 Tm
+(* Data Privacy) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(* Employment Regulations) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 74.56 Tm
+(Output) Tj
+ET
+
+endstream
+endobj
+28 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 27 0 R >>
+endobj
+29 0 obj
+<< /Length 1658 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 756.16 Tm
+(PASS) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(FAIL) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 688 Tm
+(Warnings) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 653.92 Tm
+(Recommendations) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(Module 8 - Legal Research Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(Uses Retrieval-Augmented Generation.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(Retrieves) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(* Constitution) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 517.6 Tm
+(* Acts) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(* Rules) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 483.52 Tm
+(* Regulations) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 466.48 Tm
+(* Supreme Court Judgments) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+(* High Court Judgments) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(Provides) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(* Summary) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 364.24 Tm
+(* Citation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 347.2 Tm
+(* Relevant Sections) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 330.16 Tm
+( Module 9 - Conversational Legal Assistant) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 296.08 Tm
+(Allows users to ask legal questions.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 262 Tm
+(Example) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 227.92 Tm
+(Can my employer terminate me without notice?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 193.84 Tm
+(Provides) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 159.76 Tm
+(* Simple explanation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 142.72 Tm
+(* Relevant laws) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 125.68 Tm
+(* Legal references) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(* Disclaimer) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 91.6 Tm
+( Module 10 - Report Generator) Tj
+ET
+
+endstream
+endobj
+30 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 29 0 R >>
+endobj
+31 0 obj
+<< /Length 1765 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 773.2 Tm
+(Generates) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+(* Client Summary) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(* Facts) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(* Legal Issues) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 688 Tm
+(* Applicable Laws) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(* Related Cases) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 653.92 Tm
+(* Compliance Results) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(* Contract Risks) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+(* Recommendations) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(* Disclaimer) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(Export) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(* PDF) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 517.6 Tm
+(* DOCX) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(Module 11 - History) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 466.48 Tm
+(Stores) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 432.4 Tm
+(* Previous Consultations) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(* Uploaded Files) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(* Generated Reports) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 364.24 Tm
+(Allows) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 330.16 Tm
+(* Search) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 313.12 Tm
+(* Delete) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 296.08 Tm
+(* Reopen) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 279.04 Tm
+(Module 12 - Admin Dashboard) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 244.96 Tm
+(Manage) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 210.88 Tm
+(* Users) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 193.84 Tm
+(* AI Usage) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 176.8 Tm
+(* Legal Database) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 159.76 Tm
+(* RAG Documents) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 142.72 Tm
+(* Analytics) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(9. Multi-Agent Design) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 74.56 Tm
+( Intake Agent) Tj
+ET
+
+endstream
+endobj
+32 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 31 0 R >>
+endobj
+33 0 obj
+<< /Length 1482 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 756.16 Tm
+(Collects user information.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+( Document Parser Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 688 Tm
+(Reads uploaded legal documents.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(Contract Reviewer Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(Analyzes legal clauses and risks.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+(Compliance Checker Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 585.76 Tm
+(Verifies legal compliance.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(Legal Research Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(Searches legal knowledge base using RAG.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 483.52 Tm
+(Q&A Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+(Answers user-specific legal questions.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 432.4 Tm
+(Legal Advice Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(Provides understandable legal guidance.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(Report Generator Agent) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(Creates downloadable reports.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 325.96 Tm
+( 10. Workflow) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 291.88 Tm
+(Login) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 257.8 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 223.72 Tm
+(Dashboard) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 189.64 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 155.56 Tm
+(New Consultation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 121.48 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 87.4 Tm
+(Select Legal Category) Tj
+ET
+
+endstream
+endobj
+34 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 33 0 R >>
+endobj
+35 0 obj
+<< /Length 1246 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 773.2 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+(Guided Intake Questions) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(Upload Documents) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(Document Parsing) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(Contract Review) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 466.48 Tm
+(Compliance Check) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 432.4 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(Legal Research) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 364.24 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 330.16 Tm
+(AI Legal Advice) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 296.08 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 262 Tm
+(Generate Report) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 227.92 Tm
+(?) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 193.84 Tm
+(Download PDF) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 176.8 Tm
+(```) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 142.72 Tm
+(11. IBM watsonx Integration) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(The application uses IBM watsonx Granite Foundation Models for:) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 74.56 Tm
+(* Natural language understanding) Tj
+ET
+
+endstream
+endobj
+36 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 35 0 R >>
+endobj
+37 0 obj
+<< /Length 1596 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 773.2 Tm
+(* Legal reasoning) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 756.16 Tm
+(* Conversational AI) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 739.12 Tm
+(* Document summarization) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(* Question answering) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(* Report generation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(Retrieval-Augmented Generation is implemented using a vector database containing legal) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 653.92 Tm
+(documents, acts, and judgments.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+(12. Features) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 585.76 Tm
+(? Multi-Agent Architecture) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 551.68 Tm
+(? RAG-based Legal Search) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 517.6 Tm
+(? Contract Analysis) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 483.52 Tm
+(? Compliance Verification) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+(? Case Research) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(? Legal Chatbot) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(? AI Report Generation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 347.2 Tm
+(? Document Upload) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 313.12 Tm
+(? Risk Detection) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 279.04 Tm
+(? Secure Authentication) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 244.96 Tm
+(? User Dashboard) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 210.88 Tm
+(? Admin Panel) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 176.8 Tm
+(? History Tracking) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 142.72 Tm
+(? Download Reports) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 108.64 Tm
+(? Responsive UI) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 74.56 Tm
+(? IBM watsonx Integration) Tj
+ET
+
+endstream
+endobj
+38 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 37 0 R >>
+endobj
+39 0 obj
+<< /Length 2478 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 756.16 Tm
+(13. Future Enhancements) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(* Voice-based legal assistant) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(* Multilingual support) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 688 Tm
+(* AI-generated legal drafts) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(* Real-time lawyer consultation) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 653.92 Tm
+(* Mobile application) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(* Court hearing reminders) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+(* E-signature integration) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(* AI confidence score) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 585.76 Tm
+(* OCR for handwritten legal documents) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(* Blockchain-based document verification) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+( 14. Advantages) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+(* Affordable legal assistance) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 483.52 Tm
+(* Available 24/7) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 466.48 Tm
+(* Faster legal research) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+(* Simplified legal language) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 432.4 Tm
+(* Accurate document analysis) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(* Automated compliance checking) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(* Better access to justice) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(* Time-saving) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 364.24 Tm
+(* User-friendly interface) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 308.92 Tm
+( 15. Limitations) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 274.84 Tm
+(* Not a substitute for professional legal advice.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 257.8 Tm
+(* Depends on the quality and coverage of the legal knowledge base.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 240.76 Tm
+(* Jurisdiction-specific laws require regular updates.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 223.72 Tm
+(* Complex litigation still requires human legal experts.) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 189.64 Tm
+( 16. Expected Outcomes) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 155.56 Tm
+(* Faster access to legal information) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 138.52 Tm
+(* Reduced legal consultation time) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 121.48 Tm
+(* Improved understanding of contracts and legal rights) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 104.44 Tm
+(* Better compliance awareness) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 87.4 Tm
+(* Automated legal document analysis) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 70.36 Tm
+(* Structured and downloadable legal reports) Tj
+ET
+
+endstream
+endobj
+40 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 39 0 R >>
+endobj
+41 0 obj
+<< /Length 2285 >>
+stream
+0 g
+BT
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 756.16 Tm
+(17. Testing Scenarios) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 722.08 Tm
+(| Test Case | Expected Result |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 705.04 Tm
+(| ------------------ | ------------------------------------------ |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 688 Tm
+(| User Login | Successful authentication |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 670.96 Tm
+(| Upload Contract | Document parsed successfully |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 653.92 Tm
+(| Ask Legal Question | AI provides response with citations |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 636.88 Tm
+(| Contract Review | Risks highlighted with recommendations |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 619.84 Tm
+(| Compliance Check | PASS/FAIL with explanations |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 602.8 Tm
+(| Legal Research | Relevant laws and case summaries retrieved |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 585.76 Tm
+(| Generate Report | PDF/Word report generated |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 568.72 Tm
+(| Search History | Previous consultations displayed |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 551.68 Tm
+(| Admin Login | Admin dashboard accessible |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 534.64 Tm
+(| Logout | Secure session termination |) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 500.56 Tm
+( 18. Conclusion) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 466.48 Tm
+(The "AI Legal Aid Multi-Agent System" demonstrates how IBM watsonx and specialized AI) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 449.44 Tm
+(agents can make legal services more accessible, efficient, and understandable. By) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 432.4 Tm
+(integrating Retrieval-Augmented Generation, document analysis, compliance verification,) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 415.36 Tm
+(contract review, and conversational AI into a single platform, the system empowers) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 398.32 Tm
+(individuals and small businesses to better understand legal issues while maintaining) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 381.28 Tm
+(transparency through citations and appropriate legal disclaimers. This solution addresses) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 364.24 Tm
+(the hackathon challenge by delivering a scalable, production-ready legal assistance) Tj
+0 g
+/F1 12 Tf
+1 0 0 1 56.69 347.2 Tm
+(platform that is user-friendly, secure, and extensible for future legal domains.) Tj
+ET
+
+endstream
+endobj
+42 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 8 0 R /F7 9 0 R /F8 10 0 R /F9 11 0 R /F10 12 0 R /F11 13 0 R /F12 14 0 R >> >> /Contents 41 0 R >>
+endobj
+xref
+0 43
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000214 00000 n
+0000000311 00000 n
+0000000413 00000 n
+0000000518 00000 n
+0000000627 00000 n
+0000000726 00000 n
+0000000824 00000 n
+0000000924 00000 n
+0000001029 00000 n
+0000001125 00000 n
+0000001226 00000 n
+0000001330 00000 n
+0000001438 00000 n
+0000004391 00000 n
+0000004643 00000 n
+0000006340 00000 n
+0000006592 00000 n
+0000008531 00000 n
+0000008783 00000 n
+0000010553 00000 n
+0000010805 00000 n
+0000012478 00000 n
+0000012730 00000 n
+0000014670 00000 n
+0000014922 00000 n
+0000016843 00000 n
+0000017095 00000 n
+0000018806 00000 n
+0000019058 00000 n
+0000020876 00000 n
+0000021128 00000 n
+0000022663 00000 n
+0000022915 00000 n
+0000024214 00000 n
+0000024466 00000 n
+0000026115 00000 n
+0000026367 00000 n
+0000028898 00000 n
+0000029150 00000 n
+0000031488 00000 n
+trailer
+<< /Size 43 /Root 1 0 R >>
+startxref
+31740
+%%EOF
