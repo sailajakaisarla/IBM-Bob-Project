@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AI Legal Aid System — IBM WatsonX</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f8fa;--surface:#fff;--border:#e5e7eb;--text:#1f2328;--muted:#57606a;
+  --accent:#3b82d4;--accent-hover:#2563eb;--accent-light:#eff6ff;
+  --success:#16a34a;--success-bg:#dcfce7;--warn:#d97706;--warn-bg:#fef3c7;
+  --danger:#dc2626;--danger-bg:#fee2e2;--purple:#7c3aed;--purple-bg:#ede9fe;
+  --sidebar:240px;--header:56px;
+}
+body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;line-height:1.6;background:var(--bg);color:var(--text);min-height:100vh}
+body.dark{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent-light:#1c2a3a}
+
+/* ── Layout ───────────────────────────────────── */
+#app-shell{display:none;height:100vh;overflow:hidden;flex-direction:column}
+#app-shell.visible{display:flex}
+#top-bar{height:var(--header);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100}
+#body-row{flex:1;display:flex;overflow:hidden}
+#sidebar{width:var(--sidebar);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+#main-content{flex:1;overflow:hidden;display:flex;flex-direction:column}
+
+/* ── Top Bar ──────────────────────────────────── */
+.tb-logo{font-size:17px;font-weight:700;color:var(--text);white-space:nowrap}
+.tb-logo span{color:var(--accent)}
+.tb-badge{background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px}
+.tb-search{flex:1;max-width:340px;position:relative}
+.tb-search input{width:100%;padding:7px 12px 7px 32px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg);color:var(--text);outline:none}
+.tb-search input:focus{border-color:var(--accent)}
+.tb-search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px}
+.tb-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+.tb-icon-btn{background:none;border:none;cursor:pointer;padding:6px;border-radius:6px;color:var(--muted);font-size:16px;position:relative;display:flex;align-items:center}
+.tb-icon-btn:hover{background:var(--bg);color:var(--text)}
+.notif-badge{position:absolute;top:2px;right:2px;width:8px;height:8px;background:var(--danger);border-radius:50%}
+.tb-avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;cursor:pointer;flex-shrink:0}
+.tb-user-name{font-size:13px;font-weight:600;color:var(--text)}
+
+/* ── Sidebar ──────────────────────────────────── */
+.sb-section{padding:12px 8px 4px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:6px;font-size:13px;color:var(--muted);cursor:pointer;transition:background .12s;border:none;background:none;width:100%;text-align:left}
+.sb-item:hover{background:var(--bg);color:var(--text)}
+.sb-item.active{background:var(--accent-light);color:var(--accent);font-weight:600}
+.sb-item .icon{font-size:15px;width:18px;text-align:center}
+.sb-divider{border:none;border-top:1px solid var(--border);margin:6px 8px}
+
+/* ── Panels ───────────────────────────────────── */
+.panel{display:none;flex:1;overflow-y:auto;padding:24px}
+.panel.active{display:flex;flex-direction:column;gap:20px}
+
+/* ── Auth screens ─────────────────────────────── */
+#auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg)}
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:36px;width:100%;max-width:420px}
+.auth-logo{text-align:center;margin-bottom:24px}
+.auth-logo h1{font-size:22px;font-weight:700}
+.auth-logo p{color:var(--muted);font-size:13px;margin-top:4px}
+.auth-tabs{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px}
+.auth-tab{flex:1;padding:9px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);background:var(--bg);border:none}
+.auth-tab.active{background:var(--accent);color:#fff}
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
+.form-row input,.form-row select,.form-row textarea{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;background:var(--surface);color:var(--text);outline:none}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--accent)}
+.form-row textarea{resize:vertical;min-height:80px}
+.auth-divider{text-align:center;margin:16px 0;color:var(--muted);font-size:12px;position:relative}
+.auth-divider::before,.auth-divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--border)}
+.auth-divider::before{left:0}.auth-divider::after{right:0}
+.btn-google{width:100%;padding:10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
+.btn-google:hover{background:var(--bg)}
+.forgot-link{font-size:12px;color:var(--accent);cursor:pointer;text-align:right;display:block;margin-top:4px}
+.forgot-link:hover{text-decoration:underline}
+.role-select-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.role-opt{border:1px solid var(--border);border-radius:6px;padding:8px 6px;text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted)}
+.role-opt.selected{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
+
+/* ── Buttons ──────────────────────────────────── */
+.btn{padding:9px 18px;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-primary:disabled{opacity:.55;cursor:not-allowed}
+.btn-ghost{background:var(--bg);color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--border)}
+.btn-danger{background:var(--danger-bg);color:var(--danger)}
+.btn-danger:hover{background:#fecaca}
+.btn-success{background:var(--success-bg);color:var(--success)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-full{width:100%;justify-content:center}
+
+/* ── Cards ────────────────────────────────────── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px}
+.card-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+.card-sub{font-size:12px;color:var(--muted)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:6px}
+.stat-label{font-size:12px;color:var(--muted);font-weight:600}
+.stat-value{font-size:28px;font-weight:700;color:var(--text)}
+.stat-icon{font-size:20px;margin-bottom:2px}
+
+/* ── Tags & Badges ────────────────────────────── */
+.tag{padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;display:inline-block}
+.tag-blue{background:var(--accent-light);color:var(--accent)}
+.tag-green{background:var(--success-bg);color:var(--success)}
+.tag-warn{background:var(--warn-bg);color:var(--warn)}
+.tag-red{background:var(--danger-bg);color:var(--danger)}
+.tag-purple{background:var(--purple-bg);color:var(--purple)}
+.tag-gray{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+
+/* ── Tables ───────────────────────────────────── */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--bg)}
+td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+
+/* ── Notifications dropdown ───────────────────── */
+.notif-dropdown{position:absolute;top:44px;right:0;width:320px;background:var(--surface);border:1px solid var(--border);border-radius:8px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.notif-header{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:13px}
+.notif-list{max-height:360px;overflow-y:auto}
+.notif-item{padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer}
+.notif-item:hover{background:var(--bg)}
+.notif-item.unread{background:var(--accent-light)}
+.notif-title{font-weight:600;font-size:13px;color:var(--text)}
+.notif-msg{font-size:12px;color:var(--muted);margin-top:2px}
+.notif-time{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* ── Quick Actions ────────────────────────────── */
+.qa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.qa-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+.qa-card:hover{border-color:var(--accent);background:var(--accent-light)}
+.qa-card .qa-icon{font-size:24px;margin-bottom:8px}
+.qa-card .qa-label{font-size:12px;font-weight:600;color:var(--text)}
+
+/* ── Consultation Form ────────────────────────── */
+.consult-form{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px;max-width:700px}
+.domain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.domain-opt{border:1px solid var(--border);border-radius:6px;padding:12px 8px;text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);transition:all .15s}
+.domain-opt:hover{border-color:var(--accent);color:var(--accent)}
+.domain-opt.selected{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
+.domain-opt .d-icon{font-size:20px;margin-bottom:4px}
+.urgency-row{display:flex;gap:8px}
+.urgency-opt{flex:1;padding:8px;border:1px solid var(--border);border-radius:6px;text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted)}
+.urgency-opt.high.selected{border-color:var(--danger);background:var(--danger-bg);color:var(--danger)}
+.urgency-opt.medium.selected{border-color:var(--warn);background:var(--warn-bg);color:var(--warn)}
+.urgency-opt.low.selected{border-color:var(--success);background:var(--success-bg);color:var(--success)}
+
+/* ── Chat Interface ───────────────────────────── */
+.chat-wrap{display:flex;flex-direction:column;flex:1;overflow:hidden}
+.chat-area{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:680px;padding:12px 16px;border-radius:10px;font-size:14px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+.msg.user{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:2px}
+.msg.assistant{align-self:flex-start;background:var(--surface);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:2px}
+.msg.sys-msg{align-self:center;background:var(--warn-bg);border:1px solid #fde047;color:#713f12;font-size:12px;padding:7px 14px;border-radius:20px;max-width:500px;text-align:center}
+.msg.err-msg{align-self:center;background:var(--danger-bg);border:1px solid #fca5a5;color:var(--danger);font-size:12px;padding:7px 14px;border-radius:20px;max-width:500px;text-align:center}
+.typing-indicator{align-self:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:10px;border-bottom-left-radius:2px;padding:12px 16px;color:var(--muted);font-size:13px;font-style:italic}
+.chat-input-bar{padding:12px 16px;border-top:1px solid var(--border);background:var(--surface);display:flex;gap:8px;align-items:flex-end}
+.chat-input-bar textarea{flex:1;resize:none;border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;font-family:inherit;line-height:1.5;outline:none;max-height:120px;height:44px;background:var(--bg);color:var(--text)}
+.chat-input-bar textarea:focus{border-color:var(--accent)}
+
+/* ── Progress Tracker ────────────────────────── */
+.progress-bar{display:flex;align-items:center;gap:0;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto}
+.progress-step{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap}
+.progress-step .ps-num{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px}
+.progress-step.done .ps-num{background:var(--success);border-color:var(--success);color:#fff}
+.progress-step.active{color:var(--accent)}
+.progress-step.active .ps-num{border-color:var(--accent);color:var(--accent)}
+.progress-connector{width:28px;height:2px;background:var(--border);margin:0 4px;flex-shrink:0}
+.progress-connector.done{background:var(--success)}
+
+/* ── Report Viewer ────────────────────────────── */
+.report-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface);padding:0 16px;gap:0;flex-shrink:0;overflow-x:auto}
+.rtab{padding:12px 16px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);white-space:nowrap}
+.rtab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.report-body{flex:1;overflow-y:auto;padding:20px;background:var(--bg)}
+.report-section-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;font-size:13px;line-height:1.75;color:var(--text)}
+.report-section-box h2{font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+/* ── Risk Score ───────────────────────────────── */
+.risk-meter{display:flex;align-items:center;gap:14px;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border);margin-bottom:14px}
+.risk-circle{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
+.risk-low .risk-circle{background:var(--success-bg);color:var(--success)}
+.risk-medium .risk-circle{background:var(--warn-bg);color:var(--warn)}
+.risk-high .risk-circle{background:var(--danger-bg);color:var(--danger)}
+.compliance-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.compliance-item:last-child{border-bottom:none}
+.ci-status{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.ci-pass{background:var(--success-bg);color:var(--success)}
+.ci-fail{background:var(--danger-bg);color:var(--danger)}
+.ci-warn{background:var(--warn-bg);color:var(--warn)}
+
+/* ── Document Upload ─────────────────────────── */
+.drop-zone{border:2px dashed var(--border);border-radius:8px;padding:32px;text-align:center;cursor:pointer;transition:border-color .15s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-light)}
+.drop-icon{font-size:32px;margin-bottom:10px}
+.doc-list-item{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:8px}
+.doc-icon{font-size:20px;flex-shrink:0}
+.doc-info{flex:1;min-width:0}
+.doc-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-meta{font-size:11px;color:var(--muted)}
+.doc-actions{display:flex;gap:6px;flex-shrink:0}
+
+/* ── Admin Panel ─────────────────────────────── */
+.analytics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.analytics-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.analytics-val{font-size:32px;font-weight:700;color:var(--text)}
+.analytics-lbl{font-size:11px;color:var(--muted);font-weight:600;margin-top:4px}
+
+/* ── Loading overlay ─────────────────────────── */
+.loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;z-index:999;display:none}
+.loading-overlay.show{display:flex}
+.loading-card{background:var(--surface);border-radius:10px;padding:28px 36px;text-align:center;border:1px solid var(--border)}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Toast ────────────────────────────────────── */
+#toast-container{position:fixed;bottom:20px;right:20px;z-index:1000;display:flex;flex-direction:column;gap:8px}
+.toast{padding:12px 18px;border-radius:8px;font-size:13px;font-weight:600;color:#fff;min-width:240px;animation:slideIn .3s ease}
+.toast-success{background:#16a34a}.toast-error{background:#dc2626}.toast-info{background:var(--accent)}
+@keyframes slideIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+
+/* ── Misc ─────────────────────────────────────── */
+.page-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.page-title{font-size:20px;font-weight:700;color:var(--text)}
+.page-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.empty-state{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty-icon{font-size:40px;margin-bottom:12px}
+.empty-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
+.section-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.alert{padding:10px 14px;border-radius:6px;font-size:13px;margin-bottom:12px}
+.alert-info{background:var(--accent-light);color:var(--accent);border:1px solid #bfdbfe}
+.alert-warn{background:var(--warn-bg);color:var(--warn);border:1px solid #fde68a}
+.disclaimer{background:var(--warn-bg);border:1px solid #fde68a;border-radius:6px;padding:10px 14px;font-size:12px;color:#92400e;margin-top:12px}
+.search-filter-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.search-filter-row input,.search-filter-row select{padding:7px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--surface);color:var(--text);outline:none}
+.search-filter-row input:focus,.search-filter-row select:focus{border-color:var(--accent)}
+.made-footer{text-align:center;font-size:11px;color:var(--muted);padding:14px;border-top:1px solid var(--border);background:var(--surface)}
+@media(max-width:700px){#sidebar{display:none}body.sidebar-open #sidebar{display:flex;position:fixed;z-index:300;height:100vh;top:0;left:0}.two-col,.three-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ AUTH SCREEN ═══════════════ -->
+<div id="auth-screen">
+<div class="auth-card">
+  <div class="auth-logo">
+    <h1>&#9878; Legal Aid AI</h1>
+    <p>Powered by IBM WatsonX &bull; granite-4-h-small</p>
+  </div>
+  <div id="auth-tabs" class="auth-tabs">
+    <button class="auth-tab active" onclick="showAuthTab('login')">Sign In</button>
+    <button class="auth-tab" onclick="showAuthTab('signup')">Sign Up</button>
+  </div>
+
+  <!-- Login -->
+  <div id="auth-login">
+    <div class="form-row"><label>Email</label><input type="email" id="li-email" placeholder="you@example.com"/></div>
+    <div class="form-row"><label>Password</label><input type="password" id="li-pass" placeholder="••••••••"/>
+      <span class="forgot-link" onclick="showAuthTab('forgot')">Forgot password?</span>
+    </div>
+    <div id="li-err" class="alert alert-warn" style="display:none"></div>
+    <button class="btn btn-primary btn-full" onclick="doLogin()">Sign In</button>
+    <div class="auth-divider">or</div>
+    <button class="btn-google" onclick="showToast('Google OAuth requires GOOGLE_CLIENT_ID in .env','info')">
+      <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Continue with Google
+    </button>
+    <button class="btn-google" onclick="showToast('IBM Cloud SSO — configure in .env','info')">
+      <span style="font-weight:700;color:#1d4ed8">IBM</span> Continue with IBM Cloud
+    </button>
+    <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:14px">
+      Default admin: admin@legalaid.ai / Admin@1234
+    </p>
+  </div>
+
+  <!-- Sign Up -->
+  <div id="auth-signup" style="display:none">
+    <div class="form-row"><label>Full Name</label><input type="text" id="su-name" placeholder="Jane Smith"/></div>
+    <div class="form-row"><label>Email</label><input type="email" id="su-email" placeholder="you@example.com"/></div>
+    <div class="form-row"><label>Password</label><input type="password" id="su-pass" placeholder="Min 8 characters"/></div>
+    <div class="form-row"><label>I am a</label>
+      <div class="role-select-row">
+        <div class="role-opt selected" data-role="citizen" onclick="selectRole(this)">&#128100; Citizen</div>
+        <div class="role-opt" data-role="lawyer" onclick="selectRole(this)">&#9878; Lawyer</div>
+        <div class="role-opt" data-role="admin" onclick="selectRole(this)">&#9881; Admin</div>
+      </div>
+    </div>
+    <div id="su-err" class="alert alert-warn" style="display:none"></div>
+    <button class="btn btn-primary btn-full" onclick="doSignup()">Create Account</button>
+  </div>
+
+  <!-- Forgot Password -->
+  <div id="auth-forgot" style="display:none">
+    <div class="alert alert-info">Enter your email to receive a 6-digit OTP.</div>
+    <div id="forgot-step1">
+      <div class="form-row"><label>Email</label><input type="email" id="fp-email" placeholder="you@example.com"/></div>
+      <div id="fp-err" class="alert alert-warn" style="display:none"></div>
+      <button class="btn btn-primary btn-full" onclick="doForgotPassword()">Send OTP</button>
+    </div>
+    <div id="forgot-step2" style="display:none">
+      <div class="form-row"><label>OTP Code</label><input type="text" id="fp-otp" placeholder="6-digit code" maxlength="6"/></div>
+      <div class="form-row"><label>New Password</label><input type="password" id="fp-newpass" placeholder="Min 8 characters"/></div>
+      <div id="fp-err2" class="alert alert-warn" style="display:none"></div>
+      <button class="btn btn-primary btn-full" onclick="doResetPassword()">Reset Password</button>
+    </div>
+    <p style="text-align:center;margin-top:14px"><span class="forgot-link" onclick="showAuthTab('login')">Back to Sign In</span></p>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════ APP SHELL ═══════════════ -->
+<div id="app-shell">
+
+  <!-- Top Bar -->
+  <div id="top-bar">
+    <button class="tb-icon-btn" id="menu-toggle" onclick="toggleSidebar()" style="display:none;margin-right:4px">&#9776;</button>
+    <div class="tb-logo">&#9878; Legal<span>Aid</span> AI</div>
+    <div class="tb-badge">IBM WatsonX</div>
+    <div class="tb-search">
+      <span class="tb-search-icon">&#128269;</span>
+      <input type="text" id="global-search" placeholder="Search cases, documents…" oninput="handleGlobalSearch(this.value)"/>
+    </div>
+    <div class="tb-actions">
+      <button class="tb-icon-btn" onclick="toggleDark()" title="Toggle dark mode">&#9788;</button>
+      <div style="position:relative">
+        <button class="tb-icon-btn" id="notif-btn" onclick="toggleNotifPanel()">
+          &#128276;
+          <span class="notif-badge" id="notif-badge" style="display:none"></span>
+        </button>
+        <div class="notif-dropdown" id="notif-panel" style="display:none">
+          <div class="notif-header">
+            Notifications
+            <button class="btn btn-sm btn-ghost" onclick="markAllRead()">Mark all read</button>
+          </div>
+          <div class="notif-list" id="notif-list"><div style="padding:20px;text-align:center;color:var(--muted)">No notifications</div></div>
+        </div>
+      </div>
+      <div class="tb-avatar" id="tb-avatar" onclick="navigate('profile')">U</div>
+      <span class="tb-user-name" id="tb-user-name">User</span>
+      <button class="btn btn-ghost btn-sm" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div id="body-row">
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <div class="sb-section">Main</div>
+      <button class="sb-item active" data-panel="dashboard" onclick="navigate('dashboard')"><span class="icon">&#127968;</span>Dashboard</button>
+      <button class="sb-item" data-panel="consultation" onclick="navigate('consultation')"><span class="icon">&#128172;</span>New Consultation</button>
+      <button class="sb-item" data-panel="cases" onclick="navigate('cases')"><span class="icon">&#128196;</span>My Cases</button>
+      <button class="sb-item" data-panel="documents" onclick="navigate('documents')"><span class="icon">&#128194;</span>Documents</button>
+      <button class="sb-item" data-panel="reports" onclick="navigate('reports')"><span class="icon">&#128202;</span>Reports</button>
+      <hr class="sb-divider"/>
+      <div class="sb-section">Tools</div>
+      <button class="sb-item" data-panel="assistant" onclick="navigate('assistant')"><span class="icon">&#129302;</span>Legal Assistant</button>
+      <button class="sb-item" data-panel="laws" onclick="navigate('laws')"><span class="icon">&#128218;</span>Search Laws</button>
+      <hr class="sb-divider"/>
+      <button class="sb-item" id="sb-admin" data-panel="admin" onclick="navigate('admin')" style="display:none"><span class="icon">&#9881;</span>Admin Panel</button>
+      <hr class="sb-divider" id="sb-admin-div" style="display:none"/>
+      <button class="sb-item" data-panel="profile" onclick="navigate('profile')"><span class="icon">&#128100;</span>Profile</button>
+    </div>
+
+    <!-- Panels -->
+    <div id="main-content">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="page-header">
+          <div><div class="page-title" id="dash-welcome">Welcome back!</div><div class="page-sub">Here's your legal aid overview.</div></div>
+          <button class="btn btn-primary" onclick="navigate('consultation')">+ New Consultation</button>
+        </div>
+        <div class="stat-grid" id="dash-stats">
+          <div class="stat-card"><div class="stat-icon">&#128196;</div><div class="stat-label">Active Cases</div><div class="stat-value" id="s-active">—</div></div>
+          <div class="stat-card"><div class="stat-icon">&#128194;</div><div class="stat-label">Documents</div><div class="stat-value" id="s-docs">—</div></div>
+          <div class="stat-card"><div class="stat-icon">&#128202;</div><div class="stat-label">Reports</div><div class="stat-value" id="s-reports">—</div></div>
+          <div class="stat-card"><div class="stat-icon">&#128276;</div><div class="stat-label">Notifications</div><div class="stat-value" id="s-notifs">—</div></div>
+        </div>
+        <div class="section-label">Quick Actions</div>
+        <div class="qa-grid">
+          <div class="qa-card" onclick="navigate('consultation')"><div class="qa-icon">&#128172;</div><div class="qa-label">New Consultation</div></div>
+          <div class="qa-card" onclick="navigate('documents')"><div class="qa-icon">&#128196;</div><div class="qa-label">Upload Document</div></div>
+          <div class="qa-card" onclick="navigate('laws')"><div class="qa-icon">&#128218;</div><div class="qa-label">Search Laws</div></div>
+          <div class="qa-card" onclick="navigate('assistant')"><div class="qa-icon">&#129302;</div><div class="qa-label">Ask Legal Question</div></div>
+          <div class="qa-card" onclick="navigate('cases')"><div class="qa-icon">&#128203;</div><div class="qa-label">View History</div></div>
+          <div class="qa-card" onclick="navigate('reports')"><div class="qa-icon">&#128202;</div><div class="qa-label">My Reports</div></div>
+        </div>
+        <div class="section-label">Recent Cases</div>
+        <div id="dash-recent-cases">
+          <div class="empty-state"><div class="empty-icon">&#128196;</div><div class="empty-title">No cases yet</div><p>Start a new consultation to get legal guidance.</p></div>
+        </div>
+      </div>
+
+      <!-- ── NEW CONSULTATION ── -->
+      <div class="panel" id="panel-consultation">
+        <div class="page-header">
+          <div><div class="page-title">New Consultation</div><div class="page-sub">Fill in the details below to start your AI-guided legal consultation.</div></div>
+        </div>
+        <div class="consult-form" id="consult-form-view">
+          <div class="form-row"><label>Case Title</label><input type="text" id="cf-title" placeholder="e.g. Wrongful termination at TechCorp"/></div>
+          <div class="section-label" style="margin-top:4px">Select Case Type</div>
+          <div class="domain-grid" id="domain-grid">
+            <div class="domain-opt" data-domain="employment" onclick="selectDomain(this)"><div class="d-icon">&#128188;</div>Employment</div>
+            <div class="domain-opt" data-domain="family" onclick="selectDomain(this)"><div class="d-icon">&#128106;</div>Family</div>
+            <div class="domain-opt" data-domain="housing" onclick="selectDomain(this)"><div class="d-icon">&#127968;</div>Housing</div>
+            <div class="domain-opt" data-domain="criminal" onclick="selectDomain(this)"><div class="d-icon">&#9878;</div>Criminal</div>
+            <div class="domain-opt" data-domain="immigration" onclick="selectDomain(this)"><div class="d-icon">&#127758;</div>Immigration</div>
+            <div class="domain-opt" data-domain="consumer" onclick="selectDomain(this)"><div class="d-icon">&#128722;</div>Consumer</div>
+            <div class="domain-opt" data-domain="civil_rights" onclick="selectDomain(this)"><div class="d-icon">&#9878;</div>Civil Rights</div>
+            <div class="domain-opt" data-domain="business" onclick="selectDomain(this)"><div class="d-icon">&#128200;</div>Business</div>
+          </div>
+          <div class="two-col">
+            <div class="form-row"><label>Country</label><input type="text" id="cf-country" placeholder="e.g. United States"/></div>
+            <div class="form-row"><label>State / Province</label><input type="text" id="cf-state" placeholder="e.g. California"/></div>
+          </div>
+          <div class="two-col">
+            <div class="form-row"><label>Language</label>
+              <select id="cf-language">
+                <option>English</option><option>Spanish</option><option>French</option>
+                <option>German</option><option>Hindi</option><option>Arabic</option><option>Portuguese</option>
+              </select>
+            </div>
+            <div class="form-row"><label>Urgency Level</label>
+              <div class="urgency-row">
+                <div class="urgency-opt high" onclick="selectUrgency(this,'high')">&#128308; High</div>
+                <div class="urgency-opt medium selected" onclick="selectUrgency(this,'medium')">&#128993; Medium</div>
+                <div class="urgency-opt low" onclick="selectUrgency(this,'low')">&#128994; Low</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row"><label>Brief Description</label>
+            <textarea id="cf-description" placeholder="Briefly describe your legal issue…"></textarea>
+          </div>
+          <div id="cf-err" class="alert alert-warn" style="display:none"></div>
+          <button class="btn btn-primary" onclick="startConsultation()">Start Consultation &#8594;</button>
+        </div>
+
+        <!-- Active Chat (shown after form submission) -->
+        <div id="consult-chat-view" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+          <div class="progress-bar" id="chat-progress-bar">
+            <div class="progress-step active" id="ps-1"><div class="ps-num">1</div><span>Intake</span></div>
+            <div class="progress-connector" id="pc-1"></div>
+            <div class="progress-step" id="ps-2"><div class="ps-num">2</div><span>Research</span></div>
+            <div class="progress-connector" id="pc-2"></div>
+            <div class="progress-step" id="ps-3"><div class="ps-num">3</div><span>Advice</span></div>
+            <div class="progress-connector" id="pc-3"></div>
+            <div class="progress-step" id="ps-4"><div class="ps-num">4</div><span>Document</span></div>
+            <div class="progress-connector" id="pc-4"></div>
+            <div class="progress-step" id="ps-5"><div class="ps-num">5</div><span>Complete</span></div>
+          </div>
+          <div class="chat-wrap">
+            <div class="chat-area" id="chat-area"></div>
+            <div class="chat-input-bar">
+              <textarea id="chat-input" placeholder="Type your message…" rows="1"></textarea>
+              <button class="btn btn-primary" id="chat-send-btn" onclick="sendChatMessage()">Send</button>
+              <button class="btn btn-ghost" onclick="resetConsultation()">New</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Report view (after completion) -->
+        <div id="consult-report-view" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+          <div class="report-tabs">
+            <div class="rtab active" onclick="showReportTab('r-summary',this)">Case Summary</div>
+            <div class="rtab" onclick="showReportTab('r-research',this)">Legal Research</div>
+            <div class="rtab" onclick="showReportTab('r-advice',this)">Legal Advice</div>
+            <div class="rtab" onclick="showReportTab('r-compliance',this)">Compliance</div>
+            <div class="rtab" onclick="showReportTab('r-document',this)">Document</div>
+          </div>
+          <div class="report-body">
+            <div id="r-summary" class="report-section-box"></div>
+            <div id="r-research" class="report-section-box" style="display:none"></div>
+            <div id="r-advice" class="report-section-box" style="display:none"></div>
+            <div id="r-compliance" class="report-section-box" style="display:none"></div>
+            <div id="r-document" class="report-section-box" style="display:none"></div>
+          </div>
+          <div style="padding:12px 16px;background:var(--surface);border-top:1px solid var(--border);display:flex;gap:8px">
+            <button class="btn btn-primary" onclick="generatePdfReport()">&#128202; Generate PDF Report</button>
+            <button class="btn btn-ghost" onclick="resetConsultation()">Start New Case</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MY CASES ── -->
+      <div class="panel" id="panel-cases">
+        <div class="page-header">
+          <div><div class="page-title">My Cases</div><div class="page-sub">All your consultations and their status.</div></div>
+          <button class="btn btn-primary" onclick="navigate('consultation')">+ New Case</button>
+        </div>
+        <div class="search-filter-row">
+          <input type="text" id="case-search" placeholder="Search cases…" oninput="filterCases()" style="flex:1;min-width:160px"/>
+          <select id="case-status-filter" onchange="filterCases()">
+            <option value="">All Status</option><option value="active">Active</option>
+            <option value="complete">Complete</option><option value="archived">Archived</option>
+          </select>
+          <select id="case-domain-filter" onchange="filterCases()">
+            <option value="">All Domains</option>
+            <option value="employment">Employment</option><option value="family">Family</option>
+            <option value="housing">Housing</option><option value="criminal">Criminal</option>
+            <option value="immigration">Immigration</option><option value="consumer">Consumer</option>
+            <option value="civil_rights">Civil Rights</option><option value="business">Business</option>
+          </select>
+        </div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Title</th><th>Type</th><th>Jurisdiction</th><th>Urgency</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+              <tbody id="cases-tbody"></tbody>
+            </table>
+          </div>
+          <div id="cases-empty" class="empty-state" style="display:none">
+            <div class="empty-icon">&#128196;</div><div class="empty-title">No cases found</div>
+            <p>Start a new consultation to see your cases here.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── DOCUMENTS ── -->
+      <div class="panel" id="panel-documents">
+        <div class="page-header">
+          <div><div class="page-title">Documents</div><div class="page-sub">Upload and analyse contracts, notices, agreements, and more.</div></div>
+        </div>
+        <div class="card" style="max-width:600px">
+          <div class="section-label">Upload Document</div>
+          <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()" ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+            <div class="drop-icon">&#128196;</div>
+            <div style="font-weight:600;margin-bottom:4px">Drop files here or click to browse</div>
+            <div style="font-size:12px;color:var(--muted)">PDF, DOCX, TXT, PNG, JPG — max 20MB</div>
+          </div>
+          <input type="file" id="file-input" style="display:none" accept=".pdf,.docx,.doc,.txt,.png,.jpg,.jpeg,.gif,.webp" onchange="handleFileSelect(this)"/>
+          <div class="two-col" style="margin-top:12px">
+            <div class="form-row"><label>Category</label>
+              <select id="doc-category">
+                <option value="general">General</option><option value="contract">Contract</option>
+                <option value="offer_letter">Offer Letter</option><option value="payslip">Payslip</option>
+                <option value="notice">Notice</option><option value="agreement">Agreement</option>
+              </select>
+            </div>
+            <div class="form-row"><label>Link to Case (optional)</label>
+              <select id="doc-case-link"><option value="">None</option></select>
+            </div>
+          </div>
+          <div id="upload-preview" style="display:none">
+            <div class="doc-list-item">
+              <div class="doc-icon">&#128196;</div>
+              <div class="doc-info"><div class="doc-name" id="upload-fname"></div><div class="doc-meta" id="upload-fmeta"></div></div>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="upload-btn" onclick="uploadDocument()" style="display:none">Upload &amp; Extract Text</button>
+        </div>
+        <div class="section-label">Uploaded Documents</div>
+        <div id="doc-list"><div class="empty-state"><div class="empty-icon">&#128194;</div><div class="empty-title">No documents yet</div></div></div>
+      </div>
+
+      <!-- ── REPORTS ── -->
+      <div class="panel" id="panel-reports">
+        <div class="page-header">
+          <div><div class="page-title">Reports</div><div class="page-sub">Download PDF legal aid reports for your completed cases.</div></div>
+        </div>
+        <div class="search-filter-row">
+          <input type="text" id="report-search" placeholder="Search reports…" oninput="filterReports()" style="flex:1"/>
+        </div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Title</th><th>Type</th><th>Date</th><th>Actions</th></tr></thead>
+              <tbody id="reports-tbody"></tbody>
+            </table>
+          </div>
+          <div id="reports-empty" class="empty-state" style="display:none">
+            <div class="empty-icon">&#128202;</div><div class="empty-title">No reports yet</div>
+            <p>Complete a consultation, then click "Generate PDF Report".</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LEGAL ASSISTANT ── -->
+      <div class="panel" id="panel-assistant">
+        <div class="page-header">
+          <div><div class="page-title">Legal Assistant</div><div class="page-sub">Ask any legal question in plain language. AI-powered with citations.</div></div>
+        </div>
+        <div class="disclaimer">&#9888;&#65039; This assistant provides general legal information only, not legal advice. Always consult a qualified lawyer.</div>
+        <div style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:400px;background:var(--surface);border:1px solid var(--border);border-radius:8px">
+          <div class="chat-area" id="assistant-chat-area" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px"></div>
+          <div class="chat-input-bar">
+            <textarea id="assistant-input" placeholder="Ask a legal question… e.g. 'What are my rights if I was fired without notice?'" rows="1"></textarea>
+            <button class="btn btn-primary" id="assistant-send-btn" onclick="sendAssistantMessage()">Ask</button>
+            <button class="btn btn-ghost" onclick="clearAssistant()">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SEARCH LAWS ── -->
+      <div class="panel" id="panel-laws">
+        <div class="page-header">
+          <div><div class="page-title">Search Laws &amp; Precedents</div><div class="page-sub">RAG-powered legal research with citations.</div></div>
+        </div>
+        <div class="card" style="max-width:680px">
+          <div class="form-row"><label>Legal Question or Topic</label>
+            <textarea id="law-query" rows="3" placeholder="e.g. Unfair dismissal law in the UK for employees with less than 2 years service"></textarea>
+          </div>
+          <div class="two-col">
+            <div class="form-row"><label>Domain</label>
+              <select id="law-domain">
+                <option value="">All Domains</option>
+                <option value="employment">Employment</option><option value="family">Family</option>
+                <option value="housing">Housing</option><option value="criminal">Criminal</option>
+                <option value="immigration">Immigration</option><option value="consumer">Consumer</option>
+                <option value="business">Business</option>
+              </select>
+            </div>
+            <div class="form-row"><label>Jurisdiction</label>
+              <input type="text" id="law-jurisdiction" placeholder="e.g. United Kingdom"/>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="searchLaws()">Search Laws</button>
+        </div>
+        <div id="law-result" style="display:none" class="card">
+          <div class="section-label">Research Results</div>
+          <div id="law-result-body" style="font-size:13px;line-height:1.8;white-space:pre-wrap"></div>
+          <div class="disclaimer" style="margin-top:12px">&#9888;&#65039; General legal information only. Not legal advice.</div>
+        </div>
+      </div>
+
+      <!-- ── ADMIN PANEL ── -->
+      <div class="panel" id="panel-admin">
+        <div class="page-header"><div class="page-title">Admin Panel</div><div class="page-sub">User management, analytics, and knowledge base.</div></div>
+        <div class="analytics-grid" id="admin-analytics"></div>
+        <!-- Sub-tabs -->
+        <div class="report-tabs" style="background:var(--surface);border:1px solid var(--border);border-radius:8px 8px 0 0;padding:0 12px">
+          <div class="rtab active" onclick="showAdminTab('admin-users',this)">Users</div>
+          <div class="rtab" onclick="showAdminTab('admin-kb',this)">Knowledge Base</div>
+        </div>
+        <div id="admin-users" class="card" style="border-radius:0 0 8px 8px;border-top:none">
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <input type="text" id="admin-user-search" placeholder="Search users…" oninput="adminSearchUsers()" style="flex:1;padding:7px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--surface);color:var(--text);outline:none"/>
+            <select id="admin-role-filter" onchange="adminSearchUsers()" style="padding:7px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--surface);color:var(--text)">
+              <option value="">All Roles</option><option value="citizen">Citizen</option><option value="lawyer">Lawyer</option><option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Provider</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="admin-users-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="admin-kb" style="display:none" class="card" style="border-radius:0 0 8px 8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <div class="section-label" style="margin-bottom:0">Knowledge Base Documents</div>
+            <button class="btn btn-primary btn-sm" onclick="showAddKbDoc()">+ Add Document</button>
+          </div>
+          <div id="kb-add-form" style="display:none;background:var(--bg);border-radius:6px;padding:14px;margin-bottom:14px">
+            <div class="form-row"><label>Title</label><input type="text" id="kb-title" placeholder="e.g. Employment Rights Act 1996"/></div>
+            <div class="two-col">
+              <div class="form-row"><label>Domain</label><input type="text" id="kb-domain" placeholder="employment"/></div>
+              <div class="form-row"><label>Jurisdiction</label><input type="text" id="kb-juris" placeholder="UK"/></div>
+            </div>
+            <div class="form-row"><label>Type</label>
+              <select id="kb-type"><option value="statute">Statute</option><option value="judgment">Judgment</option><option value="regulation">Regulation</option><option value="guideline">Guideline</option></select>
+            </div>
+            <div class="form-row"><label>Content</label><textarea id="kb-content" rows="5" placeholder="Full text of the law / judgment excerpt…"></textarea></div>
+            <div class="form-row"><label>Source URL (optional)</label><input type="text" id="kb-source" placeholder="https://…"/></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-primary btn-sm" onclick="addKbDoc()">Save</button>
+              <button class="btn btn-ghost btn-sm" onclick="document.getElementById('kb-add-form').style.display='none'">Cancel</button>
+            </div>
+          </div>
+          <div id="kb-list"></div>
+        </div>
+      </div>
+
+      <!-- ── PROFILE ── -->
+      <div class="panel" id="panel-profile">
+        <div class="page-title" style="margin-bottom:20px">My Profile</div>
+        <div class="card" style="max-width:500px">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+            <div class="tb-avatar" style="width:56px;height:56px;font-size:22px" id="profile-avatar">U</div>
+            <div><div style="font-size:17px;font-weight:700" id="profile-name">—</div><div style="font-size:13px;color:var(--muted)" id="profile-email">—</div></div>
+            <span class="tag tag-blue" id="profile-role" style="margin-left:auto">citizen</span>
+          </div>
+          <div class="form-row"><label>Full Name</label><input type="text" id="p-name" placeholder="Your name"/></div>
+          <div class="form-row"><label>Email</label><input type="text" id="p-email" readonly style="opacity:.6"/></div>
+          <hr style="border:none;border-top:1px solid var(--border);margin:16px 0"/>
+          <div class="section-label">Change Password</div>
+          <div class="form-row"><label>New Password</label><input type="password" id="p-newpass" placeholder="Min 8 characters"/></div>
+          <div class="form-row"><label>Confirm Password</label><input type="password" id="p-confirmpass" placeholder="Repeat password"/></div>
+          <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+        </div>
+      </div>
+
+    </div><!-- /main-content -->
+  </div><!-- /body-row -->
+
+  <div class="made-footer">Made with IBM Bob &bull; AI Legal Aid System &bull; IBM WatsonX granite-4-h-small</div>
+</div><!-- /app-shell -->
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loading-overlay">
+  <div class="loading-card">
+    <div class="spinner"></div>
+    <div style="font-weight:600" id="loading-text">Working…</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">IBM WatsonX agents are processing your request</div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+const API = '/api';
+let _token = localStorage.getItem('la_token') || '';
+let _user  = JSON.parse(localStorage.getItem('la_user') || 'null');
+let _activeCaseId = null;
+let _pendingFile  = null;
+let _selectedRole = 'citizen';
+let _selectedDomain = '';
+let _selectedUrgency = 'medium';
+let _notifOpen = false;
+let _allCases  = [];
+let _allDocs   = [];
+let _allReports = [];
+let _assistantHistory = [];
+let _forgotUserId = '';
+let _dark = localStorage.getItem('la_dark') === '1';
+
+// ═══════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  if (_dark) document.body.classList.add('dark');
+  if (_token && _user) {
+    showApp();
+  } else {
+    document.getElementById('auth-screen').style.display = 'flex';
+  }
+  // Close notif panel on outside click
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#notif-btn') && !e.target.closest('#notif-panel')) {
+      document.getElementById('notif-panel').style.display = 'none';
+      _notifOpen = false;
+    }
+  });
+  // Auto-resize chat textareas
+  ['chat-input','assistant-input'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      el.style.height = '44px';
+      el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+    });
+    el.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' && !ev.shiftKey) {
+        ev.preventDefault();
+        id === 'chat-input' ? sendChatMessage() : sendAssistantMessage();
+      }
+    });
+  });
+  // Mobile menu toggle
+  if (window.innerWidth <= 700) {
+    document.getElementById('menu-toggle').style.display = 'flex';
+  }
+});
+
+function showApp() {
+  document.getElementById('auth-screen').style.display = 'none';
+  const shell = document.getElementById('app-shell');
+  shell.classList.add('visible');
+  // Update top bar
+  const initials = (_user?.full_name || 'U').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('tb-avatar').textContent = initials;
+  document.getElementById('tb-user-name').textContent = _user?.full_name || '';
+  document.getElementById('dash-welcome').textContent = `Welcome back, ${(_user?.full_name||'').split(' ')[0] || 'Counsellor'}!`;
+  if (_user?.role === 'admin') {
+    document.getElementById('sb-admin').style.display = 'flex';
+    document.getElementById('sb-admin-div').style.display = 'block';
+  }
+  navigate('dashboard');
+  loadDashboard();
+}
+
+// ═══════════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════════
+function showAuthTab(tab) {
+  ['login','signup','forgot'].forEach(t => {
+    document.getElementById('auth-'+t).style.display = t===tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('.auth-tab').forEach((el,i) => {
+    el.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='signup'));
+  });
+  if (tab==='forgot') document.querySelectorAll('.auth-tab').forEach(e=>e.classList.remove('active'));
+}
+
+function selectRole(el) {
+  document.querySelectorAll('.role-opt').forEach(r=>r.classList.remove('selected'));
+  el.classList.add('selected');
+  _selectedRole = el.dataset.role;
+}
+
+async function doLogin() {
+  const email = document.getElementById('li-email').value.trim();
+  const pass  = document.getElementById('li-pass').value;
+  if (!email || !pass) return setErr('li-err','Email and password required');
+  showLoading('Signing in…');
+  try {
+    const r = await apiFetch('/auth/login', 'POST', {email, password:pass}, false);
+    _token = r.token; _user = r.user;
+    localStorage.setItem('la_token', _token);
+    localStorage.setItem('la_user', JSON.stringify(_user));
+    hideLoading(); showApp();
+  } catch(e) { hideLoading(); setErr('li-err', e.message); }
+}
+
+async function doSignup() {
+  const name  = document.getElementById('su-name').value.trim();
+  const email = document.getElementById('su-email').value.trim();
+  const pass  = document.getElementById('su-pass').value;
+  if (!name||!email||!pass) return setErr('su-err','All fields required');
+  showLoading('Creating account…');
+  try {
+    const r = await apiFetch('/auth/signup','POST',{full_name:name,email,password:pass,role:_selectedRole},false);
+    _token = r.token; _user = r.user;
+    localStorage.setItem('la_token',_token);
+    localStorage.setItem('la_user',JSON.stringify(_user));
+    hideLoading(); showApp();
+  } catch(e) { hideLoading(); setErr('su-err',e.message); }
+}
+
+async function doForgotPassword() {
+  const email = document.getElementById('fp-email').value.trim();
+  if (!email) return setErr('fp-err','Email required');
+  showLoading('Sending OTP…');
+  try {
+    const r = await apiFetch('/auth/forgot-password','POST',{email},false);
+    _forgotUserId = r.user_id || '';
+    hideLoading();
+    document.getElementById('forgot-step1').style.display = 'none';
+    document.getElementById('forgot-step2').style.display = 'block';
+    if (r.otp) showToast(`Dev mode — OTP: ${r.otp}`, 'info');
+  } catch(e) { hideLoading(); setErr('fp-err',e.message); }
+}
+
+async function doResetPassword() {
+  const otp  = document.getElementById('fp-otp').value.trim();
+  const pass = document.getElementById('fp-newpass').value;
+  if (!otp || !pass) return setErr('fp-err2','OTP and new password required');
+  showLoading('Resetting password…');
+  try {
+    await apiFetch('/auth/reset-password','POST',{user_id:_forgotUserId,otp,new_password:pass},false);
+    hideLoading(); showToast('Password reset! Please sign in.','success');
+    showAuthTab('login');
+  } catch(e) { hideLoading(); setErr('fp-err2',e.message); }
+}
+
+function doLogout() {
+  _token=''; _user=null; _activeCaseId=null;
+  localStorage.removeItem('la_token'); localStorage.removeItem('la_user');
+  document.getElementById('app-shell').classList.remove('visible');
+  document.getElementById('auth-screen').style.display='flex';
+  showAuthTab('login');
+}
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+function navigate(panel) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById('panel-'+panel);
+  if (el) el.classList.add('active');
+  const sb = document.querySelector(`.sb-item[data-panel="${panel}"]`);
+  if (sb) sb.classList.add('active');
+
+  if (panel === 'dashboard')   loadDashboard();
+  if (panel === 'cases')       loadCases();
+  if (panel === 'documents')   loadDocuments();
+  if (panel === 'reports')     loadReports();
+  if (panel === 'admin')       loadAdmin();
+  if (panel === 'profile')     loadProfile();
+  if (panel === 'assistant')   initAssistant();
+  if (panel === 'consultation') resetConsultation();
+
+  if (window.innerWidth <= 700) document.body.classList.remove('sidebar-open');
+}
+
+function toggleSidebar() { document.body.classList.toggle('sidebar-open'); }
+
+// ═══════════════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════════════
+async function loadDashboard() {
+  try {
+    const r = await apiFetch('/dashboard');
+    document.getElementById('s-active').textContent   = r.stats.pending_cases;
+    document.getElementById('s-docs').textContent     = r.stats.total_documents;
+    document.getElementById('s-reports').textContent  = r.stats.total_reports;
+    document.getElementById('s-notifs').textContent   = r.stats.unread_notifications;
+
+    // Notifications badge
+    const badge = document.getElementById('notif-badge');
+    if (r.stats.unread_notifications > 0) {
+      badge.style.display = 'block';
+    } else { badge.style.display = 'none'; }
+
+    renderNotifList(r.notifications);
+    renderRecentCases(r.recent_cases);
+  } catch(e) { console.error('Dashboard load failed:', e.message); }
+}
+
+function renderRecentCases(cases) {
+  const el = document.getElementById('dash-recent-cases');
+  if (!cases || !cases.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">&#128196;</div><div class="empty-title">No cases yet</div><p>Start a new consultation.</p></div>`;
+    return;
+  }
+  el.innerHTML = cases.map(c => `
+    <div class="doc-list-item" style="cursor:pointer" onclick="openCase('${c.id}')">
+      <div class="doc-icon">${domainIcon(c.case_type)}</div>
+      <div class="doc-info">
+        <div class="doc-name">${esc(c.title)}</div>
+        <div class="doc-meta">${capitalize(c.case_type)} &bull; ${c.country||''}${c.state?', '+c.state:''} &bull; ${fmtDate(c.updated_at)}</div>
+      </div>
+      <span class="tag ${statusTag(c.status)}">${c.status}</span>
+      <span class="tag ${urgencyTag(c.urgency)}">${c.urgency}</span>
+    </div>`).join('');
+}
+
+function renderNotifList(notifs) {
+  const el = document.getElementById('notif-list');
+  if (!notifs || !notifs.length) { el.innerHTML='<div style="padding:20px;text-align:center;color:var(--muted)">No notifications</div>'; return; }
+  el.innerHTML = notifs.map(n=>`
+    <div class="notif-item ${n.is_read?'':'unread'}" onclick="markNotifRead('${n.id}',this)">
+      <div class="notif-title">${esc(n.title)}</div>
+      <div class="notif-msg">${esc(n.message||'')}</div>
+      <div class="notif-time">${fmtDate(n.created_at)}</div>
+    </div>`).join('');
+}
+
+async function markNotifRead(id, el) {
+  try { await apiFetch(`/notifications/${id}/read`,'PATCH',{}); el.classList.remove('unread'); } catch(e) {}
+}
+async function markAllRead() {
+  try { await apiFetch('/notifications/read-all','POST',{}); document.querySelectorAll('.notif-item.unread').forEach(e=>e.classList.remove('unread')); document.getElementById('notif-badge').style.display='none'; } catch(e) {}
+}
+function toggleNotifPanel() {
+  const p = document.getElementById('notif-panel');
+  _notifOpen = !_notifOpen;
+  p.style.display = _notifOpen ? 'block' : 'none';
+}
+
+function handleGlobalSearch(q) {
+  if (q.length < 2) return;
+  navigate('cases');
+  document.getElementById('case-search').value = q;
+  filterCases();
+}
+
+// ═══════════════════════════════════════════════════════
+// CONSULTATION FORM
+// ═══════════════════════════════════════════════════════
+function selectDomain(el) {
+  document.querySelectorAll('.domain-opt').forEach(d=>d.classList.remove('selected'));
+  el.classList.add('selected');
+  _selectedDomain = el.dataset.domain;
+}
+
+function selectUrgency(el, val) {
+  document.querySelectorAll('.urgency-opt').forEach(u=>u.classList.remove('selected'));
+  el.classList.add('selected');
+  _selectedUrgency = val;
+}
+
+async function startConsultation() {
+  const title = document.getElementById('cf-title').value.trim();
+  const country = document.getElementById('cf-country').value.trim();
+  const state   = document.getElementById('cf-state').value.trim();
+  const language = document.getElementById('cf-language').value;
+  const description = document.getElementById('cf-description').value.trim();
+
+  if (!title) return setErr('cf-err','Please enter a case title');
+  if (!_selectedDomain) return setErr('cf-err','Please select a case type');
+
+  document.getElementById('cf-err').style.display='none';
+  showLoading('Creating case…');
+
+  try {
+    const r = await apiFetch('/cases','POST',{
+      title, case_type:_selectedDomain,
+      country, state, language,
+      urgency:_selectedUrgency, description
+    });
+    _activeCaseId = r.case.id;
+    hideLoading();
+
+    // Switch to chat view
+    document.getElementById('consult-form-view').style.display = 'none';
+    document.getElementById('consult-chat-view').style.display = 'flex';
+    document.getElementById('consult-report-view').style.display = 'none';
+
+    // Seed initial greeting
+    const chatArea = document.getElementById('chat-area');
+    chatArea.innerHTML = '';
+    appendMsg(chatArea, 'sys-msg', `Case opened: "${title}" · ${capitalize(_selectedDomain)} · ${urgencyLabel(_selectedUrgency)} urgency`);
+
+    // Initial message to start the intake
+    await sendChatRaw("Hello, I need help with my legal issue.");
+  } catch(e) { hideLoading(); setErr('cf-err', e.message); }
+}
+
+function resetConsultation() {
+  _activeCaseId = null;
+  _selectedDomain = '';
+  _selectedUrgency = 'medium';
+  document.getElementById('consult-form-view').style.display = 'block';
+  document.getElementById('consult-chat-view').style.display = 'none';
+  document.getElementById('consult-report-view').style.display = 'none';
+  document.getElementById('cf-title').value = '';
+  document.getElementById('cf-description').value = '';
+  document.getElementById('cf-country').value = '';
+  document.getElementById('cf-state').value = '';
+  document.querySelectorAll('.domain-opt').forEach(d=>d.classList.remove('selected'));
+  document.querySelectorAll('.urgency-opt').forEach(u=>{u.classList.remove('selected'); if(u.classList.contains('medium'))u.classList.add('selected');});
+  document.getElementById('chat-area').innerHTML = '';
+  document.getElementById('cf-err').style.display = 'none';
+  setProgressStep('intake');
+}
+
+function setProgressStep(stage) {
+  const stageIdx = {intake:1,post_intake:1,research:2,advice:3,document_choice:4,complete:5};
+  const idx = stageIdx[stage] || 1;
+  for (let i = 1; i <= 5; i++) {
+    const ps = document.getElementById('ps-' + i);
+    if (!ps) continue;
+
+    ps.classList.remove('done', 'active');
+
+    if (i < idx) {
+        ps.classList.add('done');
+    } else if (i === idx) {
+        ps.classList.add('active');
+    }
+
+    const pc = document.getElementById('pc-' + i);
+    if (pc) {
+        pc.classList.toggle('done', i < idx);
+    }
+}
+}
+
+// ═══════════════════════════════════════════════════════
+// CHAT
+// ═══════════════════════════════════════════════════════
+async function sendChatMessage() {
+  const input = document.getElementById('chat-input');
+  const text  = input.value.trim();
+  if (!text || !_activeCaseId) return;
+  input.value = ''; input.style.height = '44px';
+  await sendChatRaw(text);
+}
+
+async function sendChatRaw(text) {
+  if (!_activeCaseId) return;
+  const chatArea = document.getElementById('chat-area');
+  const sendBtn  = document.getElementById('chat-send-btn');
+
+  if (text !== 'Hello, I need help with my legal issue.') {
+    appendMsg(chatArea,'user', text);
+  }
+  sendBtn.disabled = true;
+  const typing = appendTyping(chatArea);
+
+  try {
+    const r = await apiFetch(`/cases/${_activeCaseId}/chat`,'POST',{message:text});
+    typing.remove();
+    appendMsg(chatArea,'assistant', r.reply);
+    setProgressStep(r.stage);
+
+    if (r.complete && r.outputs) {
+      showConsultReport(r.outputs);
+    }
+  } catch(e) {
+    typing.remove();
+    appendMsg(chatArea,'err-msg', '⚠️ Error: '+e.message);
+  }
+  sendBtn.disabled = false;
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function showConsultReport(outputs) {
+  document.getElementById('consult-chat-view').style.display = 'none';
+  document.getElementById('consult-report-view').style.display = 'flex';
+  setProgressStep('complete');
+
+  // Summary
+  const intake = outputs.intake || {};
+  let sh = `<h2>Case Summary</h2>`;
+  sh += `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">`;
+  if(intake.domain)       sh+=`<span class="tag tag-blue">${capitalize(intake.domain)}</span>`;
+  if(intake.jurisdiction) sh+=`<span class="tag tag-green">${esc(intake.jurisdiction)}</span>`;
+  if(intake.urgency)      sh+=`<span class="tag ${urgencyTag(intake.urgency)}">${capitalize(intake.urgency)} urgency</span>`;
+  sh += `</div>`;
+  if(intake.summary) sh+=`<p style="margin-bottom:12px">${esc(intake.summary)}</p>`;
+  if(intake.key_facts?.length) {
+    sh+=`<strong>Key Facts</strong><ul style="padding-left:18px;margin-top:6px">`;
+    intake.key_facts.forEach(f=>{sh+=`<li style="margin-bottom:4px">${esc(f)}</li>`;});
+    sh+=`</ul>`;
+  }
+  document.getElementById('r-summary').innerHTML = sh;
+
+  // Research & Advice
+  document.getElementById('r-research').innerHTML = `<h2>Legal Research Brief</h2>${mdToHtml(outputs.research||'Not available.')}`;
+  document.getElementById('r-advice').innerHTML   = `<h2>Legal Advice</h2>${mdToHtml(outputs.advice||'Not available.')}`;
+
+  // Compliance
+  const comp = outputs.compliance;
+  if (comp && comp.checks) {
+    let ch = `<h2>Compliance Check</h2>`;
+    const statusCls = {compliant:'tag-green',partially_compliant:'tag-warn',non_compliant:'tag-red',unknown:'tag-gray'};
+    ch += `<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <span class="tag ${statusCls[comp.overall_status]||'tag-gray'}" style="font-size:13px;padding:4px 12px">${(comp.overall_status||'unknown').replace(/_/g,' ')}</span>
+      <span style="font-size:13px;color:var(--muted)">Score: <b>${comp.compliance_score||0}/100</b></span>
+    </div>`;
+    if (comp.checks.length) {
+      ch += `<div>`;
+      comp.checks.forEach(c=>{
+        const cls = c.status==='PASS'?'ci-pass':c.status==='FAIL'?'ci-fail':'ci-warn';
+        ch+=`<div class="compliance-item">
+          <span class="ci-status ${cls}">${c.status}</span>
+          <div><div style="font-weight:600;font-size:13px">${esc(c.requirement)}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">${esc(c.explanation||'')}${c.law_reference?` <em>[${esc(c.law_reference)}]</em>`:''}</div></div>
+        </div>`;
+      });
+      ch += `</div>`;
+    }
+    if (comp.remediation?.length) {
+      ch+=`<div style="margin-top:14px"><strong>Remediation Steps</strong><ol style="padding-left:18px;margin-top:6px">`;
+      comp.remediation.forEach(r=>{ch+=`<li style="margin-bottom:4px;font-size:13px">${esc(r)}</li>`;});
+      ch+=`</ol></div>`;
+    }
+    document.getElementById('r-compliance').innerHTML = ch;
+  } else {
+    document.getElementById('r-compliance').innerHTML = '<h2>Compliance Check</h2><p style="color:var(--muted)">Not available for this case.</p>';
+  }
+
+  // Document
+  if (outputs.document) {
+    document.getElementById('r-document').innerHTML = `<h2>Drafted Legal Document</h2>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+        <button class="btn btn-ghost btn-sm" onclick="copyToClipboard('r-doc-text')">&#128203; Copy</button>
+      </div>
+      <pre id="r-doc-text" style="white-space:pre-wrap;font-size:13px;line-height:1.7;font-family:inherit">${esc(outputs.document)}</pre>
+      <div class="disclaimer">${esc(outputs.document.includes('DISCLAIMER')?'':'⚠️ Template only. Consult a lawyer before using.')}</div>`;
+  } else {
+    document.getElementById('r-document').innerHTML = '<h2>Document Drafting</h2><p style="color:var(--muted)">No document was drafted for this session.</p>';
+  }
+}
+
+function showReportTab(id, tabEl) {
+  const tabs = ['r-summary','r-research','r-advice','r-compliance','r-document'];
+  tabs.forEach(t=>{const e=document.getElementById(t); if(e) e.style.display=t===id?'block':'none';});
+  document.querySelectorAll('#consult-report-view .rtab').forEach(t=>t.classList.remove('active'));
+  tabEl.classList.add('active');
+}
+
+async function generatePdfReport() {
+  if (!_activeCaseId) return;
+  showLoading('Generating PDF report…');
+  try {
+    const r = await apiFetch(`/cases/${_activeCaseId}/report`,'POST',{});
+    hideLoading();
+    if (r.pdf_ready) {
+      showToast('PDF report ready! Downloading…','success');
+      window.open(`/api/reports/${r.report.id}/download`,'_blank');
+    } else {
+      showToast('Report saved (PDF generation requires reportlab package)','info');
+    }
+    loadReports();
+  } catch(e) { hideLoading(); showToast('Report error: '+e.message,'error'); }
+}
+
+// ═══════════════════════════════════════════════════════
+// CASES
+// ═══════════════════════════════════════════════════════
+async function loadCases() {
+  try {
+    const r = await apiFetch('/cases');
+    _allCases = r.cases || [];
+    renderCases(_allCases);
+  } catch(e) { showToast('Failed to load cases','error'); }
+}
+
+function renderCases(cases) {
+  const tbody = document.getElementById('cases-tbody');
+  const empty = document.getElementById('cases-empty');
+  if (!cases.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  tbody.innerHTML = cases.map(c=>`
+    <tr>
+      <td><span style="font-weight:600">${esc(c.title)}</span></td>
+      <td>${domainIcon(c.case_type)} ${capitalize(c.case_type)}</td>
+      <td>${esc(c.country||'')}${c.state?', '+c.state:''}</td>
+      <td><span class="tag ${urgencyTag(c.urgency)}">${c.urgency}</span></td>
+      <td><span class="tag ${statusTag(c.status)}">${c.status}</span></td>
+      <td style="color:var(--muted)">${fmtDate(c.updated_at)}</td>
+      <td><div style="display:flex;gap:6px">
+        <button class="btn btn-ghost btn-sm" onclick="openCase('${c.id}')">Open</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteCase('${c.id}')">&#128465;</button>
+      </div></td>
+    </tr>`).join('');
+}
+
+function filterCases() {
+  const q = (document.getElementById('case-search').value||'').toLowerCase();
+  const st = document.getElementById('case-status-filter').value;
+  const dm = document.getElementById('case-domain-filter').value;
+  let filtered = _allCases.filter(c => {
+    if (q && !c.title.toLowerCase().includes(q)) return false;
+    if (st && c.status !== st) return false;
+    if (dm && c.case_type !== dm) return false;
+    return true;
+  });
+  renderCases(filtered);
+}
+
+function openCase(id) {
+  _activeCaseId = id;
+  navigate('consultation');
+  document.getElementById('consult-form-view').style.display = 'none';
+  document.getElementById('consult-chat-view').style.display = 'flex';
+  document.getElementById('consult-report-view').style.display = 'none';
+  const chatArea = document.getElementById('chat-area');
+  chatArea.innerHTML = '';
+  appendMsg(chatArea,'sys-msg','Case restored. Continue your consultation below.');
+}
+
+async function deleteCase(id) {
+  if (!confirm('Delete this case? This cannot be undone.')) return;
+  try { await apiFetch(`/cases/${id}`,'DELETE',{}); showToast('Case deleted','success'); loadCases(); } catch(e) { showToast('Delete failed','error'); }
+}
+
+// ═══════════════════════════════════════════════════════
+// DOCUMENTS
+// ═══════════════════════════════════════════════════════
+async function loadDocuments() {
+  try {
+    const r  = await apiFetch('/documents');
+    _allDocs = r.documents || [];
+    renderDocuments(_allDocs);
+    // Populate case-link dropdown
+    const cr = await apiFetch('/cases');
+    const sel = document.getElementById('doc-case-link');
+    sel.innerHTML = '<option value="">None</option>' + (cr.cases||[]).map(c=>`<option value="${c.id}">${esc(c.title)}</option>`).join('');
+  } catch(e) {}
+}
+
+function renderDocuments(docs) {
+  const el = document.getElementById('doc-list');
+  if (!docs.length) { el.innerHTML='<div class="empty-state"><div class="empty-icon">&#128194;</div><div class="empty-title">No documents yet</div></div>'; return; }
+  el.innerHTML = docs.map(d=>`
+    <div class="doc-list-item">
+      <div class="doc-icon">${fileIcon(d.file_type)}</div>
+      <div class="doc-info">
+        <div class="doc-name">${esc(d.original_name)}</div>
+        <div class="doc-meta">${capitalize(d.doc_category)} &bull; ${fmtFileSize(d.file_size)} &bull; ${fmtDate(d.created_at)}</div>
+      </div>
+      ${d.has_analysis?`<span class="tag tag-green">Analysed</span>`:`<span class="tag tag-gray">Raw</span>`}
+      <div class="doc-actions">
+        <button class="btn btn-ghost btn-sm" onclick="analyseDoc('${d.id}',this)">Analyse</button>
+        ${d.doc_category==='contract'||d.doc_category==='agreement'?`<button class="btn btn-ghost btn-sm" onclick="reviewContract('${d.id}')">Review</button>`:''}
+        <button class="btn btn-danger btn-sm" onclick="deleteDoc('${d.id}')">&#128465;</button>
+      </div>
+    </div>
+    ${d.analysis?renderDocAnalysis(d.analysis):''}`).join('');
+}
+
+function renderDocAnalysis(analysis) {
+  if (!analysis) return '';
+  const rs = analysis.risk_score || 'low';
+  const rn = analysis.risk_score_numeric || 0;
+  const riskClass = `risk-${rs}`;
+  let html = `<div class="risk-meter ${riskClass}" style="margin:0 0 10px 0">
+    <div class="risk-circle">${rn}</div>
+    <div>
+      <div style="font-weight:700;font-size:14px">${capitalize(rs)} Risk</div>
+      <div style="font-size:12px;color:var(--muted)">${esc(analysis.summary||'')}</div>
+      ${(analysis.flags||[]).map(f=>`<span class="tag tag-warn" style="margin-right:4px;margin-top:4px">${esc(f)}</span>`).join('')}
+    </div>
+  </div>`;
+  if (analysis.clauses?.length) {
+    html += `<div style="padding:0 0 10px 0">`;
+    analysis.clauses.forEach(c=>{
+      const ct = c.risk_level==='high'?'tag-red':c.risk_level==='medium'?'tag-warn':'tag-green';
+      html+=`<div style="display:flex;gap:8px;margin-bottom:6px;font-size:12px">
+        <span class="tag ${ct}" style="flex-shrink:0">${c.risk_level}</span>
+        <span><strong>${esc(c.name)}</strong> — ${esc(c.explanation||c.text||'')}</span>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+  return html;
+}
+
+function onDragOver(e) { e.preventDefault(); document.getElementById('drop-zone').classList.add('drag-over'); }
+function onDragLeave(e) { document.getElementById('drop-zone').classList.remove('drag-over'); }
+function onDrop(e) { e.preventDefault(); document.getElementById('drop-zone').classList.remove('drag-over'); if (e.dataTransfer.files[0]) handleFileSelect({files:e.dataTransfer.files}); }
+function handleFileSelect(input) {
+  const file = input.files[0]; if (!file) return;
+  _pendingFile = file;
+  document.getElementById('upload-fname').textContent = file.name;
+  document.getElementById('upload-fmeta').textContent = fmtFileSize(file.size);
+  document.getElementById('upload-preview').style.display = 'block';
+  document.getElementById('upload-btn').style.display = 'inline-flex';
+}
+
+async function uploadDocument() {
+  if (!_pendingFile) return;
+  const category = document.getElementById('doc-category').value;
+  const caseId   = document.getElementById('doc-case-link').value;
+  const fd = new FormData();
+  fd.append('file', _pendingFile);
+  fd.append('category', category);
+  if (caseId) fd.append('case_id', caseId);
+
+  showLoading('Uploading & extracting text…');
+  try {
+    const resp = await fetch(`${API}/documents/upload`, {
+      method:'POST', headers:{'Authorization':'Bearer '+_token}, body:fd
+    });
+    if (!resp.ok) { const e=await resp.json(); throw new Error(e.error||'Upload failed'); }
+    hideLoading(); showToast('Document uploaded!','success');
+    _pendingFile = null;
+    document.getElementById('upload-preview').style.display='none';
+    document.getElementById('upload-btn').style.display='none';
+    document.getElementById('file-input').value='';
+    loadDocuments();
+  } catch(e) { hideLoading(); showToast('Upload error: '+e.message,'error'); }
+}
+
+async function analyseDoc(id, btn) {
+  showLoading('Analysing document…');
+  try {
+    await apiFetch(`/documents/${id}/analyse`,'POST',{});
+    hideLoading(); showToast('Analysis complete!','success'); loadDocuments();
+  } catch(e) { hideLoading(); showToast('Analysis failed: '+e.message,'error'); }
+}
+
+async function reviewContract(id) {
+  const party = prompt('Your role in this contract? (employee / employer / buyer / seller / tenant / landlord)', 'employee') || 'employee';
+  const juris = prompt('Jurisdiction? (e.g. UK, US, India)', 'unspecified') || 'unspecified';
+  showLoading('Reviewing contract for risky clauses…');
+  try {
+    const r = await apiFetch(`/documents/${id}/contract-review`,'POST',{party_role:party,jurisdiction:juris});
+    hideLoading();
+    const cr = r.contract_review;
+    let msg = `Contract Review — ${capitalize(cr.overall_assessment||'unknown')} (Fairness: ${cr.fairness_score}/100)\n\n`;
+    if (cr.risky_clauses?.length) {
+      msg += cr.risky_clauses.map(c=>`[${c.severity?.toUpperCase()}] ${c.clause_type}\n→ ${c.risk_explanation}\n✏️ ${c.recommendation}`).join('\n\n');
+    }
+    showToast('Contract review complete — see document details','success');
+    loadDocuments();
+  } catch(e) { hideLoading(); showToast('Review failed: '+e.message,'error'); }
+}
+
+async function deleteDoc(id) {
+  if (!confirm('Delete this document?')) return;
+  try { await apiFetch(`/documents/${id}`,'DELETE',{}); showToast('Deleted','success'); loadDocuments(); } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════════
+// REPORTS
+// ═══════════════════════════════════════════════════════
+async function loadReports() {
+  try {
+    const r = await apiFetch('/reports');
+    _allReports = r.reports || [];
+    renderReports(_allReports);
+  } catch(e) {}
+}
+
+function renderReports(reports) {
+  const tbody = document.getElementById('reports-tbody');
+  const empty = document.getElementById('reports-empty');
+  if (!reports.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  tbody.innerHTML = reports.map(r=>`
+    <tr>
+      <td style="font-weight:600">${esc(r.title)}</td>
+      <td><span class="tag tag-blue">${capitalize(r.report_type)}</span></td>
+      <td style="color:var(--muted)">${fmtDate(r.created_at)}</td>
+      <td><div style="display:flex;gap:6px">
+        ${r.file_path?`<a href="/api/reports/${r.id}/download" target="_blank" class="btn btn-ghost btn-sm">&#11015; PDF</a>`:''}
+        <button class="btn btn-danger btn-sm" onclick="deleteReport('${r.id}')">&#128465;</button>
+      </div></td>
+    </tr>`).join('');
+}
+
+function filterReports() {
+  const q = (document.getElementById('report-search').value||'').toLowerCase();
+  renderReports(_allReports.filter(r=>r.title.toLowerCase().includes(q)));
+}
+
+async function deleteReport(id) {
+  if (!confirm('Delete this report?')) return;
+  try { await apiFetch(`/reports/${id}`,'DELETE',{}); showToast('Report deleted','success'); loadReports(); } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════════
+// LEGAL ASSISTANT
+// ═══════════════════════════════════════════════════════
+function initAssistant() {
+  const el = document.getElementById('assistant-chat-area');
+  if (!el.children.length) {
+    appendMsg(el,'assistant','Hello! I\'m your AI legal assistant. Ask me any legal question and I\'ll explain it in plain language with relevant law citations.\n\n⚠️ I provide general information only — not legal advice.');
+  }
+}
+
+async function sendAssistantMessage() {
+  const input = document.getElementById('assistant-input');
+  const text  = input.value.trim(); if (!text) return;
+  input.value=''; input.style.height='44px';
+  const el  = document.getElementById('assistant-chat-area');
+  const btn = document.getElementById('assistant-send-btn');
+  appendMsg(el,'user',text);
+  _assistantHistory.push({role:'user',content:text});
+  btn.disabled=true;
+  const typing=appendTyping(el);
+  try {
+    const r = await apiFetch('/assistant/chat','POST',{messages:_assistantHistory});
+    typing.remove();
+    appendMsg(el,'assistant',r.reply);
+    _assistantHistory.push({role:'assistant',content:r.reply});
+  } catch(e) { typing.remove(); appendMsg(el,'err-msg','⚠️ '+e.message); }
+  btn.disabled=false;
+  el.scrollTop=el.scrollHeight;
+}
+
+function clearAssistant() { document.getElementById('assistant-chat-area').innerHTML=''; _assistantHistory=[]; initAssistant(); }
+
+// ═══════════════════════════════════════════════════════
+// SEARCH LAWS
+// ═══════════════════════════════════════════════════════
+async function searchLaws() {
+  const query = document.getElementById('law-query').value.trim();
+  if (!query) return showToast('Please enter a query','info');
+  const domain = document.getElementById('law-domain').value;
+  const juris  = document.getElementById('law-jurisdiction').value.trim();
+  showLoading('Researching law…');
+  try {
+    const r = await apiFetch('/assistant/chat','POST',{
+      messages:[{role:'user',content:`Legal research request:\nDomain: ${domain||'general'}\nJurisdiction: ${juris||'unspecified'}\n\nQuestion: ${query}`}],
+      context:{domain,jurisdiction:juris}
+    });
+    hideLoading();
+    document.getElementById('law-result').style.display='block';
+    document.getElementById('law-result-body').textContent = r.reply;
+  } catch(e) { hideLoading(); showToast('Search failed: '+e.message,'error'); }
+}
+
+// ═══════════════════════════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════════════════════════
+async function loadAdmin() {
+  if (_user?.role !== 'admin') return;
+  try {
+    const [analytics, users] = await Promise.all([apiFetch('/admin/analytics'), apiFetch('/admin/users')]);
+    const g = document.getElementById('admin-analytics');
+    g.innerHTML = [
+      ['Total Users',analytics.total_users,'&#128100;'],
+      ['Total Cases',analytics.total_cases,'&#128196;'],
+      ['Active Cases',analytics.active_cases,'&#9654;'],
+      ['Complete Cases',analytics.complete_cases,'&#9989;'],
+      ['Documents',analytics.total_documents,'&#128194;'],
+      ['Reports',analytics.total_reports,'&#128202;'],
+      ['Active Sessions',analytics.active_sessions,'&#129302;'],
+    ].map(([lbl,val,icon])=>`<div class="analytics-card"><div style="font-size:22px">${icon}</div><div class="analytics-val">${val}</div><div class="analytics-lbl">${lbl}</div></div>`).join('');
+    renderAdminUsers(users.users||[]);
+    loadKnowledgeBase();
+  } catch(e) { showToast('Admin load failed','error'); }
+}
+
+function renderAdminUsers(users) {
+  const tbody = document.getElementById('admin-users-tbody');
+  tbody.innerHTML = users.map(u=>`
+    <tr>
+      <td style="font-weight:600">${esc(u.full_name)}</td>
+      <td>${esc(u.email)}</td>
+      <td><span class="tag ${u.role==='admin'?'tag-red':u.role==='lawyer'?'tag-purple':'tag-blue'}">${u.role}</span></td>
+      <td><span class="tag tag-gray">${u.provider}</span></td>
+      <td>${u.is_active?'<span class="tag tag-green">Active</span>':'<span class="tag tag-red">Disabled</span>'}</td>
+      <td><button class="btn btn-ghost btn-sm" onclick="toggleUserActive('${u.id}',${!u.is_active})">${u.is_active?'Disable':'Enable'}</button></td>
+    </tr>`).join('');
+}
+
+async function adminSearchUsers() {
+  const q = document.getElementById('admin-user-search').value;
+  const r = document.getElementById('admin-role-filter').value;
+  try {
+    const res = await apiFetch(`/admin/users?q=${encodeURIComponent(q)}&role=${r}`);
+    renderAdminUsers(res.users||[]);
+  } catch(e) {}
+}
+
+async function toggleUserActive(id, active) {
+  try { await apiFetch(`/admin/users/${id}`,'PATCH',{is_active:active}); showToast('User updated','success'); loadAdmin(); } catch(e) {}
+}
+
+function showAdminTab(id, el) {
+  ['admin-users','admin-kb'].forEach(t=>{const e=document.getElementById(t);if(e)e.style.display=t===id?'block':'none';});
+  document.querySelectorAll('#panel-admin .rtab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+async function loadKnowledgeBase() {
+  try {
+    const r = await apiFetch('/admin/knowledge');
+    const el = document.getElementById('kb-list');
+    const docs = r.docs||[];
+    if (!docs.length) { el.innerHTML='<p style="color:var(--muted);font-size:13px">No knowledge base documents yet.</p>'; return; }
+    el.innerHTML = docs.map(d=>`<div class="doc-list-item">
+      <div class="doc-icon">&#128218;</div>
+      <div class="doc-info"><div class="doc-name">${esc(d.title)}</div>
+      <div class="doc-meta">${capitalize(d.domain||'general')} &bull; ${d.jurisdiction||'all'} &bull; ${capitalize(d.doc_type)}</div></div>
+      <button class="btn btn-danger btn-sm" onclick="deleteKbDoc('${d.id}')">&#128465;</button>
+    </div>`).join('');
+  } catch(e) {}
+}
+
+function showAddKbDoc() { document.getElementById('kb-add-form').style.display='block'; }
+
+async function addKbDoc() {
+  const title   = document.getElementById('kb-title').value.trim();
+  const content = document.getElementById('kb-content').value.trim();
+  if (!title||!content) return showToast('Title and content required','error');
+  try {
+    await apiFetch('/admin/knowledge','POST',{
+      title, content,
+      domain:document.getElementById('kb-domain').value.trim(),
+      jurisdiction:document.getElementById('kb-juris').value.trim(),
+      doc_type:document.getElementById('kb-type').value,
+      source_url:document.getElementById('kb-source').value.trim(),
+    });
+    showToast('Document added to knowledge base','success');
+    document.getElementById('kb-add-form').style.display='none';
+    loadKnowledgeBase();
+  } catch(e) { showToast('Failed: '+e.message,'error'); }
+}
+
+async function deleteKbDoc(id) {
+  if (!confirm('Delete this knowledge base document?')) return;
+  try { await apiFetch(`/admin/knowledge/${id}`,'DELETE',{}); showToast('Deleted','success'); loadKnowledgeBase(); } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════════
+// PROFILE
+// ═══════════════════════════════════════════════════════
+function loadProfile() {
+  document.getElementById('profile-avatar').textContent = (_user?.full_name||'U').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('profile-name').textContent  = _user?.full_name||'';
+  document.getElementById('profile-email').textContent = _user?.email||'';
+  document.getElementById('profile-role').textContent  = _user?.role||'citizen';
+  document.getElementById('p-name').value  = _user?.full_name||'';
+  document.getElementById('p-email').value = _user?.email||'';
+}
+
+function saveProfile() { showToast('Profile update coming in next version','info'); }
+
+// ═══════════════════════════════════════════════════════
+// DARK MODE
+// ═══════════════════════════════════════════════════════
+function toggleDark() {
+  _dark = !_dark;
+  document.body.classList.toggle('dark', _dark);
+  localStorage.setItem('la_dark', _dark?'1':'0');
+}
+
+// ═══════════════════════════════════════════════════════
+// API HELPERS
+// ═══════════════════════════════════════════════════════
+async function apiFetch(path, method='GET', body=null, auth=true) {
+  const opts = { method, headers:{'Content-Type':'application/json'} };
+  if (auth && _token) opts.headers['Authorization'] = 'Bearer ' + _token;
+  if (body && method!=='GET') opts.body = JSON.stringify(body);
+  const resp = await fetch(API + path, opts);
+  const data = await resp.json().catch(()=>({}));
+  if (!resp.ok) throw new Error(data.error || `HTTP ${resp.status}`);
+  return data;
+}
+
+// ═══════════════════════════════════════════════════════
+// UI HELPERS
+// ═══════════════════════════════════════════════════════
+function appendMsg(container, cls, text) {
+  const d = document.createElement('div');
+  d.className = 'msg ' + cls;
+  d.textContent = text;
+  container.appendChild(d);
+  container.scrollTop = container.scrollHeight;
+  return d;
+}
+function appendTyping(container) {
+  const d = document.createElement('div');
+  d.className = 'typing-indicator';
+  d.textContent = 'Agents working…';
+  container.appendChild(d);
+  container.scrollTop = container.scrollHeight;
+  return d;
+}
+function showLoading(text='Processing…') {
+  document.getElementById('loading-text').textContent = text;
+  document.getElementById('loading-overlay').classList.add('show');
+}
+function hideLoading() { document.getElementById('loading-overlay').classList.remove('show'); }
+function showToast(msg, type='info') {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  document.getElementById('toast-container').appendChild(el);
+  setTimeout(()=>el.remove(), 4000);
+}
+function setErr(id, msg) {
+  const el = document.getElementById(id);
+  if (el) { el.textContent = msg; el.style.display = 'block'; }
+}
+function copyToClipboard(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(()=>showToast('Copied!','success'));
+}
+function mdToHtml(md) {
+  return esc(md)
+    .replace(/^## (.+)$/gm,'<strong style="display:block;font-size:14px;font-weight:700;margin:14px 0 4px;color:var(--accent)">$1</strong>')
+    .replace(/^### (.+)$/gm,'<strong style="display:block;font-size:13px;font-weight:700;margin:10px 0 2px">$1</strong>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^- (.+)$/gm,'&nbsp;&nbsp;&bull; $1')
+    .replace(/^\d+\. (.+)$/gm,'&nbsp;&nbsp;&#8226; $1')
+    .replace(/\[(.+?)\]/g,'<em style="color:var(--accent)">[$1]</em>')
+    .replace(/\n/g,'<br/>');
+}
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function capitalize(s) { return s?(s.charAt(0).toUpperCase()+s.slice(1).replace(/_/g,' ')):'' }
+function fmtDate(iso) { if(!iso) return '—'; try { return new Date(iso).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); } catch(e){return iso;} }
+function fmtFileSize(b) { if(!b) return ''; if(b<1024) return b+'B'; if(b<1024*1024) return (b/1024).toFixed(1)+'KB'; return (b/1024/1024).toFixed(1)+'MB'; }
+function urgencyLabel(u) { return {high:'High Urgency',medium:'Medium Urgency',low:'Low Urgency'}[u]||u; }
+function urgencyTag(u) { return {high:'tag-red',medium:'tag-warn',low:'tag-green'}[u]||'tag-gray'; }
+function statusTag(s) { return {active:'tag-blue',complete:'tag-green',archived:'tag-gray',pending:'tag-warn'}[s]||'tag-gray'; }
+function domainIcon(d) { return {employment:'&#128188;',family:'&#128106;',housing:'&#127968;',criminal:'&#9878;',immigration:'&#127758;',consumer:'&#128722;',civil_rights:'&#9878;',business:'&#128200;',other:'&#128196;'}[d]||'&#128196;'; }
+function fileIcon(ext) { return {pdf:'&#128196;',docx:'&#128196;',doc:'&#128196;',txt:'&#128220;',png:'&#128247;',jpg:'&#128247;',jpeg:'&#128247;',gif:'&#128247;',webp:'&#128247;'}[ext]||'&#128196;'; }
+</script>
+</body>
+</html>

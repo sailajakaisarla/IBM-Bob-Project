@@ -1,0 +1,26 @@
+# Core
+flask>=3.0.0
+flask-cors>=4.0.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Auth
+PyJWT>=2.8.0
+bcrypt>=4.1.0
+itsdangerous>=2.2.0
+
+# Database
+flask-sqlalchemy>=3.1.0
+sqlalchemy>=2.0.0
+
+# Document parsing
+PyPDF2>=3.0.0
+python-docx>=1.1.0
+Pillow>=10.0.0
+
+# Report generation
+reportlab>=4.1.0
+
+# Utilities
+python-dateutil>=2.9.0
+uuid>=1.30
